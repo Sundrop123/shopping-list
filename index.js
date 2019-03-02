@@ -1,7 +1,4 @@
-// module-level global vars
 
-// we're using a single, global state object
-// in this app
 var state = {
   items: []
 };
@@ -21,8 +18,6 @@ var listItemTemplate = (
   '</li>'
 );
 
-
-// state management
 function addItem(state, item) {
   state.items.push({
     displayName: item,
@@ -42,8 +37,6 @@ function updateItem(state, itemIndex, newItemState) {
   state.items[itemIndex] = newItemState;
 }
 
-// DOM manipulation
-
 function renderItem(item, itemId, itemTemplate, itemDataAttr) {
   var element = $(itemTemplate);
   element.find('.js-shopping-item').text(item.displayName);
@@ -62,9 +55,6 @@ function renderList(state, listElement, itemDataAttr) {
   });
   listElement.html(itemsHTML);
 }
-
-
-// Event listeners
 
 function handleItemAdds(
   formElement, newItemIdentifier, itemDataAttr, listElement, state) {
@@ -110,19 +100,15 @@ $(function() {
   var formElement = $('#js-shopping-list-form');
   var listElement = $('.js-shopping-list');
 
-  // from index.html -- it's the id of the input
-  // containing shopping list items
+ 
   var newItemIdentifier = '#js-new-item';
 
-  // from `listItemTemplate` at top of this file. for each
-  // displayed shopping list item, we'll be adding a button
-  // that has this class name on it
+  
   var removeIdentifier = '.js-shopping-item-delete';
 
-  // we'll use this attribute to store the id of the list item
   var itemDataAttr = 'data-list-item-id';
 
-  //
+  
   var toggleIdentifier = '.js-shopping-item-toggle'
 
   handleItemAdds(
