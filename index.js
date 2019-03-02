@@ -1,6 +1,11 @@
+// module-level global vars
+
+// we're using a single, global state object
+// in this app
 var state = {
   items: []
 };
+
 
 var listItemTemplate = (
   '<li>' +
@@ -16,6 +21,8 @@ var listItemTemplate = (
   '</li>'
 );
 
+
+// state management
 function addItem(state, item) {
   state.items.push({
     displayName: item,
@@ -34,6 +41,8 @@ function deleteItem(state, itemIndex) {
 function updateItem(state, itemIndex, newItemState) {
   state.items[itemIndex] = newItemState;
 }
+
+// DOM manipulation
 
 function renderItem(item, itemId, itemTemplate, itemDataAttr) {
   var element = $(itemTemplate);
@@ -54,6 +63,9 @@ function renderList(state, listElement, itemDataAttr) {
   listElement.html(itemsHTML);
 }
 
+
+// Event listeners
+
 function handleItemAdds(
   formElement, newItemIdentifier, itemDataAttr, listElement, state) {
 
@@ -62,12 +74,14 @@ function handleItemAdds(
     var newItem = formElement.find(newItemIdentifier).val();
     addItem(state, newItem);
     renderList(state, listElement, itemDataAttr);
+    // reset form
     this.reset();
   });
 }
 
 function handleItemDeletes(
-  formElement, removeIdentifier, itemDataAttr, listElement, state) 
+  formElement, removeIdentifier, itemDataAttr, listElement, state) {
+
   listElement.on('click', removeIdentifier, function(event) {
     var itemIndex = parseInt($(this).closest('li').attr(itemDataAttr));
     deleteItem(state, itemIndex);
@@ -78,6 +92,7 @@ function handleItemDeletes(
 
 function handleItemToggles(
   listElement, toggleIdentifier, itemDataAttr, state) {
+
   listElement.on('click', toggleIdentifier, function(event) {
     var itemId = $(event.currentTarget.closest('li')).attr(itemDataAttr);
     var oldItem = getItem(state, itemId);
@@ -89,16 +104,31 @@ function handleItemToggles(
     renderList(state, listElement, itemDataAttr)
   });
 }
+
+
 $(function() {
   var formElement = $('#js-shopping-list-form');
   var listElement = $('.js-shopping-list');
-  var newItemIdentifier = '#js-new-item';  
+
+  // from index.html -- it's the id of the input
+  // containing shopping list items
+  var newItemIdentifier = '#js-new-item';
+
+  // from `listItemTemplate` at top of this file. for each
+  // displayed shopping list item, we'll be adding a button
+  // that has this class name on it
   var removeIdentifier = '.js-shopping-item-delete';
+
+  // we'll use this attribute to store the id of the list item
   var itemDataAttr = 'data-list-item-id';
+
+  //
   var toggleIdentifier = '.js-shopping-item-toggle'
+
   handleItemAdds(
     formElement, newItemIdentifier, itemDataAttr, listElement, state);
   handleItemDeletes(
     formElement, removeIdentifier, itemDataAttr, listElement, state);
   handleItemToggles(listElement, toggleIdentifier, itemDataAttr, state);
 });
+
