@@ -16,7 +16,7 @@
     <form id="js-shopping-list-form">
       <label for="shopping-list-entry">Add an item</label>
       <input type="text" name="shopping-list-entry" id="shopping-list-entry" placeholder="e.g., broccoli">
-      <button type="submit">Add item</button>
+      <button type="submit" id="add_item_btn">Add item</button>
     </form>
 
     <ul class="shopping-list">
@@ -32,7 +32,7 @@
         </div>
       </li>
       <li>
-        <span class="shopping-item">oranges</span>
+        <span class="shopping-item shopping-item__checked">oranges</span>
         <div class="shopping-item-controls">
           <button class="shopping-item-toggle">
             <span class="button-label">check</span>
@@ -66,8 +66,10 @@
       </li>
     </ul>
   </div>
-
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
   <script src="index.js"></script>
 </body>
 </html>
